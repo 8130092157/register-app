@@ -1,0 +1,20 @@
+name: Check Tekton Pipeline Status
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+
+jobs:
+  check-status:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check Tekton Pipeline
+        run: |
+          STATUS=$(kubectl get pipelinerun my-pipeline-run -o jsonpath='{.status.conditions[0].reason}')
+          echo "Pipeline Status: $STATUS"
+          if [[ "$STATUS" == "Succeeded" ]]; then
+            echo "✅ Pipeline completed successfully!"
+          else
+            echo "❌ Pipeline failed!"
+          fi
