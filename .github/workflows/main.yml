@@ -11,7 +11,7 @@ jobs:
     steps:
       - name: Check Tekton Pipeline
         run: |
-          STATUS=$(kubectl get pipelinerun my-pipeline-run -o jsonpath='{.status.conditions[0].reason}')
+          STATUS=$(kubectl get pipelinerun something-pushed-hbstc  -o jsonpath='{.status.conditions[0].reason}')
           echo "Pipeline Status: $STATUS"
           if [[ "$STATUS" == "Succeeded" ]]; then
             echo "✅ Pipeline completed successfully!"
